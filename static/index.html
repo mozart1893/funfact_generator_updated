@@ -1,0 +1,43 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Fun Fact Generator</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-white text-gray-900 font-sans p-4">
+  <div class="max-w-xl mx-auto">
+    <h1 class="text-2xl font-bold mb-4 text-center">Fun Fact Generator</h1>
+    <button onclick="generateFacts()" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 w-full">Generate Fun Facts</button>
+    <ul id="facts" class="mt-6 space-y-3"></ul>
+  </div>
+
+  <script>
+    async function generateFacts() {
+      const button = document.querySelector("button");
+      const list = document.getElementById("facts");
+      button.disabled = true;
+      button.textContent = "Loading...";
+
+      try {
+        const response = await fetch("/generate");
+        const data = await response.json();
+        list.innerHTML = "";
+        data.facts.forEach(fact => {
+          const li = document.createElement("li");
+          li.textContent = fact;
+          li.className = "p-3 border rounded shadow-sm";
+          list.appendChild(li);
+        });
+      } catch (error) {
+        list.innerHTML = "<li class='text-red-600'>Error loading fun facts.</li>";
+      } finally {
+        button.disabled = false;
+        button.textContent = "Generate Fun Facts";
+      }
+    }
+  </script>
+</body>
+</html>
