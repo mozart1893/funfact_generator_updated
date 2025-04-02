@@ -26,9 +26,9 @@ DEEPSEEK_API_KEY=your_deepseek_api_key_here
 ### 3. Create a virtual environment and install dependencies
 
 ```bash
-python -m venv .venv
+python3 -m venv .venv
 source .venv/bin/activate  # On Windows: .venv\Scripts\activate
-pip install -r requirements.txt
+pip3 install -r requirements.txt
 ```
 
 ### 4. Run the app
